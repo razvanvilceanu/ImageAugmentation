@@ -12,8 +12,9 @@ def load_augment_save(path, ext):
         os.mkdir(augpath)
     ext = "/*." + ext
     print(path+ext)
+
     images = glob.glob(path + ext)
-    print("Loaded images in %a" % path + "\n")
+    print("Loaded images from %a" % path + "\n")
     print(images)
 
     for e in images:
@@ -24,10 +25,13 @@ def load_augment_save(path, ext):
             iaa.AdditiveGaussianNoise(scale=(10, 60)),
             iaa.Crop(percent=(0, 0.2))
         ])
+
         img_aug = seq(image=img)
         print("Augmented image %s" % e)
-        imageio.imsave(augpath, img_aug, format=".png")
+
+        imageio.imwrite(augpath + "/", img_aug, ext)
         print("Saved image %s on %a" % e % augpath)
+
     return None
 
 
