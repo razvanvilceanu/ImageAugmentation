@@ -11,7 +11,7 @@ def load_augment_save(path, ext):
     if not os.path.exists(augpath):
         os.mkdir(augpath)
     ext = "/*." + ext
-    print(path+ext)
+    print(path + ext)
 
     images = glob.glob(path + ext)
     print("Loaded images from %a" % path + "\n")
@@ -29,19 +29,7 @@ def load_augment_save(path, ext):
         img_aug = seq(image=img)
         print("Augmented image %s" % e)
 
-        imageio.imwrite(augpath + "/", img_aug, ext)
-        print("Saved image %s on %a" % e % augpath)
+        imageio.imwrite(augpath + "/" + e[len(path):-4] + "_aug" + e[-4:], img_aug, ext)
+        print("Saved image on %s" % augpath + "\n")
 
     return None
-
-
-load_augment_save("data/etrims-db_v1/annotations/04_etrims-ds", "png")
-
-# annots = glob.glob("data/etrims-db_v1/annotations/08_etrims-ds/.png")
-# for e in annots:
-#     if not(e.endswith(".jpg") or (e.endswith(".png"))):
-#         annots.remove(e)
-#
-#
-# for image in images:
-#     img = imageio.imread(image)
